@@ -1,4 +1,4 @@
-# from controls import gamepad
+# from input import gamepad
 
 class KeyCombination(object):
     '''

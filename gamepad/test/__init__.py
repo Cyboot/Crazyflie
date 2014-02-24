@@ -5,18 +5,18 @@ import codecs
 import sys
 import time
 
-import controls
-from controls.keycombination import KeyCombination
+import input
+from input.keycombination import KeyCombination
 
 
 sys.stdout = codecs.getwriter('utf8')(sys.stdout)
 
 
 if __name__ == "__main__":
-    controls.start()
+    input.start()
     
     while True:
         combi = KeyCombination(["R1","cross"])
         
-        print controls.isPressed(combi)
-        time.sleep(1)
+        print input.isPressed(combi)
+        time.sleep(.2)

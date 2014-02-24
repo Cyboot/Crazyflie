@@ -1,5 +1,5 @@
 eclipse.preferences.version=1
-encoding//gamepad/controls/gamepad.py=utf-8
+encoding//gamepad/input/gamepad.py=utf-8
 encoding//gamepad/test/__init__.py=utf-8
 encoding//lib/cflib/__init__.py=utf-8
 encoding//lib/cflib/crazyflie/__init__.py=utf-8
