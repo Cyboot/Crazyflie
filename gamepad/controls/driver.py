@@ -61,10 +61,10 @@ class PyGameDriver(threading.Thread):
         self._gamepad.buttons["down"] = hat[1] == -1
 
         # Axis    
-        self._gamepad.axisLeft_X = self._joystick.get_axis(0)
-        self._gamepad.axisLeft_Y = self._joystick.get_axis(1)
-        self._gamepad.axisRight_X = self._joystick.get_axis(2)
-        self._gamepad.axisRight_Y = self._joystick.get_axis(3)
+        self._gamepad.axisLeft_X = self._joystick.get_axis(0) * 100
+        self._gamepad.axisLeft_Y = self._joystick.get_axis(1) * 100
+        self._gamepad.axisRight_X = self._joystick.get_axis(2) * 100
+        self._gamepad.axisRight_Y = self._joystick.get_axis(3) * 100
     
         
 class SixAxisDriver(threading.Thread):
