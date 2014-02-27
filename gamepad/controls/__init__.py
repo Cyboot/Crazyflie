@@ -6,7 +6,7 @@ from controls.driver import SixAxisDriver
 from controls.gamepad import Gamepad
 
 
-logging.basicConfig(level=logging.DEBUG,format='%(levelname)-5s- %(name)-15s  >>  %(message)s')
+logging.basicConfig(level=logging.INFO,format='%(levelname)-5s- %(name)-15s  >>  %(message)s')
 logger = logging.getLogger(__name__)
 # handler = logging.StreamHandler()
 # formatter = logging.Formatter('%(levelname)-5s - %(name)-12s : %(message)s')

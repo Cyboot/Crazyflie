@@ -111,7 +111,9 @@ class Crazyradio:
         """ Create object and scan for USB dongle if no device is supplied """
         if device is None:
             try:
-                device = _find_devices()[devid]
+                """FIXME: somehow the default config doesn't work all the time""" 
+                device = usb.core.find(idVendor=0x1915, idProduct=0x7777, find_all=1, backend=pyusb_backend)[devid]
+#                 device = _find_devices()[devid]
             except Exception:
                 raise Exception("Cannot find a Crazyradio Dongle")
 

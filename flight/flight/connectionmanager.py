@@ -4,6 +4,7 @@ import time
 import cflib.crtp
 
 import logging
+from flight.log import CFLog
 logger = logging.getLogger(__name__)
 
 class ConnectionManager(threading.Thread):
@@ -12,7 +13,9 @@ class ConnectionManager(threading.Thread):
     '''
 
     def __init__(self, flightcontroller):
+        threading.Thread.__init__(self)
         self._flightcontroller = flightcontroller
+        self.cfLog = CFLog()
         
         # Crazyflie obj + callbacks
         self._cf = Crazyflie()
@@ -21,7 +24,7 @@ class ConnectionManager(threading.Thread):
         self._cf.connection_failed.add_callback(self._connection_failed)
         self._cf.connection_lost.add_callback(self._connection_lost)
         
-        self._isConnected = False
+        self.isConnected = False
         
         self._flightcontroller.setConnectionManager(self)
         self._flightcontroller.setCrazyflie(self._cf)
@@ -30,22 +33,24 @@ class ConnectionManager(threading.Thread):
         
     def _connection_failed(self, link_uri, msg):
         logger.debug("Connection to %s failed: %s" % (link_uri, msg))
-        self._isConnected = False
+        self.isConnected = False
         self._link = None
 
     def _connection_lost(self, link_uri, msg):
         logger.debug("Connection to %s lost: %s" % (link_uri, msg))
-        self._isConnected = False
+        self.isConnected = False
         self._link = None
 
     def _disconnected(self, link_uri):
         logger.info("Disconnected from %s" % link_uri)
-        self._isConnected = False
+        self.isConnected = False
         self._link = None
+        self.cfLog.stop()
     
     def _connected(self, link_uri):
         logger.debug("Connected to %s" % link_uri)
-        self._isConnected = True
+        self.isConnected = True
+        self.cfLog.start(self._cf)
         
 
     def _reconnect(self):
@@ -62,9 +67,9 @@ class ConnectionManager(threading.Thread):
             logger.info("No Crazyflies found")
     
     
-    def _run(self):
+    def run(self):
         while True:
-            if self._isConnected == False:
+            if self.isConnected == False:
                 self._reconnect()
                 time.sleep(3)
             

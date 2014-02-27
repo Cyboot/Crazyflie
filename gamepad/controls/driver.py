@@ -44,10 +44,10 @@ class PyGameDriver(threading.Thread):
         self._gamepad.buttons["circle"] = self._joystick.get_button(2)
         self._gamepad.buttons["triangle"] = self._joystick.get_button(3)
         
-        self._gamepad.buttons["R1"] = self._joystick.get_button(4)
-        self._gamepad.buttons["L1"] = self._joystick.get_button(5)
-        self._gamepad.buttons["R2"] = self._joystick.get_button(6)
-        self._gamepad.buttons["L2"] = self._joystick.get_button(7)
+        self._gamepad.buttons["L1"] = self._joystick.get_button(4)
+        self._gamepad.buttons["R1"] = self._joystick.get_button(5)
+        self._gamepad.buttons["L2"] = self._joystick.get_button(6)
+        self._gamepad.buttons["R2"] = self._joystick.get_button(7)
         
         self._gamepad.buttons["select"] = self._joystick.get_button(8)
         self._gamepad.buttons["start"] = self._joystick.get_button(9)
@@ -65,6 +65,16 @@ class PyGameDriver(threading.Thread):
         self._gamepad.axisLeft_Y = self._joystick.get_axis(1) * 100
         self._gamepad.axisRight_X = self._joystick.get_axis(2) * 100
         self._gamepad.axisRight_Y = self._joystick.get_axis(3) * 100
+        
+        if abs(self._gamepad.axisLeft_X) < 0.3:
+            self._gamepad.axisLeft_X = 0
+        if abs(self._gamepad.axisLeft_Y) < 0.3:
+            self._gamepad.axisLeft_Y = 0
+        if abs(self._gamepad.axisRight_X) < 0.3:
+            self._gamepad.axisRight_X = 0
+        if abs(self._gamepad.axisRight_Y) < 0.3:
+            self._gamepad.axisRight_Y = 0
+            
     
         
 class SixAxisDriver(threading.Thread):
@@ -110,7 +120,7 @@ class SixAxisDriver(threading.Thread):
         self._gamepad.buttons["down"] = state["bottomdown"]
         
         # Axis
-        self._gamepad.axisLeft_X = state["leftx"] / 100.
-        self._gamepad.axisLeft_Y = state["lefty"] / 100.
-        self._gamepad.axisRight_X = state["rightx"] / 100.
-        self._gamepad.axisRight_Y = state["righty"] / 100.
+        self._gamepad.axisLeft_X = state["leftx"] 
+        self._gamepad.axisLeft_Y = state["lefty"] 
+        self._gamepad.axisRight_X = state["rightx"] 
+        self._gamepad.axisRight_Y = state["righty"]
